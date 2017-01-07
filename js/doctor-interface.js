@@ -1,11 +1,11 @@
-var apiKey = "1bc1ec65881d0f1c0d0f1790b157ef2e";
+var apiKey = require('./../.env').apiKey;
 
-$(document).ready(function() {
-  $('#doctor-button').click(function() {
-    var doctor = $('#location').val();
-    $('#location').val("");
-    $('.showWeather').text("The doctors are " + city + ".");
-    $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey, function(response) {
-
-  });
-});
+exports.getDoctors = function(medicalIssue) {
+  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=0&limit=20&user_key=' + apiKey)
+   .then(function(result) {
+      console.log(result);
+    })
+   .fail(function(error){
+      console.log("fail");
+    });
+};
